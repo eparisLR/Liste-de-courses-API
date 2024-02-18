@@ -2,18 +2,12 @@ use axum::{
     routing::get,
     Router,
 };
-use diesel_async::{
-    pooled_connection::AsyncDieselConnectionManager, AsyncPgConnection, RunQueryDsl,
-};
+use diesel_async::pooled_connection::AsyncDieselConnectionManager;
+use ldc_api::controller::recipes::get_recipes;
 use std::net::SocketAddr;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use dotenvy::dotenv;
 use std::env;
-
-pub mod schema;
-pub mod model;
-
-type Pool = bb8::Pool<AsyncDieselConnectionManager<AsyncPgConnection>>;
 
 #[tokio::main]
 async fn main() {
@@ -33,7 +27,10 @@ async fn main() {
     let pool = bb8::Pool::builder().build(config).await.unwrap();
 
     // build our application with a single route
-    let app = Router::new().route("/", get(|| async { "Hello, World!" })).with_state(pool);
+    let app = Router::new()
+        .route("/", get(|| async { "Hello, World!" }))
+        .route("/recipes/", get(get_recipes))
+        .with_state(pool);
 
     // run our app with hyper, listening globally on port 3000
     let addr = SocketAddr::from(([0, 0, 0, 0], 3000));

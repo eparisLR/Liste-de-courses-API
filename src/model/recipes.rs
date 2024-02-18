@@ -1,11 +1,17 @@
 use diesel::{associations::{Associations, Identifiable}, Insertable, Queryable, Selectable};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use crate::model::{Ingredient, Category};
 
-#[derive(Serialize, Selectable, Queryable, Insertable, Identifiable)]
+#[derive(Serialize, Selectable, Queryable, Identifiable)]
 #[diesel(table_name= crate::schema::recipes)]
 pub struct Recipe {
     id: i32,
+    name: String
+}
+
+#[derive(Deserialize, Insertable)]
+#[diesel(table_name= crate::schema::recipes)]
+pub struct NewRecipe {
     name: String
 }
 
