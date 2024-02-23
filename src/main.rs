@@ -4,6 +4,7 @@ use axum::{
 };
 use diesel_async::pooled_connection::AsyncDieselConnectionManager;
 use ldc_api::controller::recipes::get_recipes;
+use utoipa_swagger_ui::SwaggerUi;
 use std::net::SocketAddr;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use dotenvy::dotenv;
