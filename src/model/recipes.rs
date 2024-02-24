@@ -29,7 +29,7 @@ pub struct RecipeIngredients {
 #[diesel(belongs_to(Recipe, foreign_key = recipe_id))]
 #[diesel(belongs_to(Category, foreign_key = category_id))]
 #[diesel(table_name= crate::schema::recipescategories)]
-pub struct RecipeSteps {
+pub struct RecipeCategories {
     id: i32,
     recipe_id: i32,
     category_id: i32

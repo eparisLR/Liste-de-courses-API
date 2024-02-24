@@ -3,7 +3,7 @@ use axum::{
     Router,
 };
 use diesel_async::pooled_connection::AsyncDieselConnectionManager;
-use ldc_api::controller::recipes::{get_recipes, insert_one_recipe};
+use ldc_api::controller::recipes::{get_recipe_categories, get_recipe_ingredients, get_recipes, insert_one_recipe};
 use std::net::SocketAddr;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use dotenvy::dotenv;
@@ -31,6 +31,8 @@ async fn main() {
         .route("/", get(|| async { "Hello, World!" }))
         .route("/recipes/", get(get_recipes))
         .route("/recipes/", post(insert_one_recipe))
+        .route("/recipes/:recipe_id_param/ingredients", get(get_recipe_ingredients))
+        .route("/recipes/:recipe_id_param/categories", get(get_recipe_categories))
         .with_state(pool);
 
     // run our app with hyper, listening globally on port 3000
