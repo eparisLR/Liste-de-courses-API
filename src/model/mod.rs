@@ -4,5 +4,7 @@ mod categories;
 mod steps;
 pub use ingredients::Ingredient;
 pub use recipes::Recipe;
+pub use recipes::NewRecipe;
+pub use recipes::RecipeIngredients;
 pub use categories::Category;
 pub use steps::Step;

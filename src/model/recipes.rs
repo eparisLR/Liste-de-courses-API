@@ -15,7 +15,7 @@ pub struct NewRecipe {
     name: String
 }
 
-#[derive(Serialize, Selectable, Queryable, Insertable, Identifiable, Associations)]
+#[derive(Identifiable, Selectable, Queryable, Associations, Debug)]
 #[diesel(belongs_to(Recipe, foreign_key = recipe_id))]
 #[diesel(belongs_to(Ingredient, foreign_key = ingredient_id))]
 #[diesel(table_name= crate::schema::recipesingredients)]
